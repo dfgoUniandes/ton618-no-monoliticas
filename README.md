@@ -15,8 +15,11 @@ Experimentación diseño y construcción de soluciones no monolíticas
 ## Escenarios de calidad escogidos.
 
 ### Escenario 1
+![image](https://user-images.githubusercontent.com/78925077/223602167-acb6196f-6909-4e78-9a4b-e10577be6eec.png)
 
 ### Escenario 2
+![image](https://user-images.githubusercontent.com/78925077/223602437-28112387-255d-4db3-9943-8dcbc282262e.png)
 
 ### Escenario 3
+![image](https://user-images.githubusercontent.com/78925077/223602552-250d0b05-1134-4589-b20c-f2cbc1cf6d4f.png)
 
