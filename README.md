@@ -2,10 +2,10 @@
 
 ## Grupo TON618
 Integrantes
-Elkin Rativa Ruiz
-Jorge Pacheco Rodríguez
-Oscar Cortes Medina
-Diego Garcia Ortega
+* Elkin Rativa Ruiz
+* Jorge Pacheco Rodríguez
+* Oscar Cortes Medina
+* Diego Garcia Ortega
 
 # Prueba de concepto (experimentación)
 
