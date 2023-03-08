@@ -33,3 +33,17 @@ Integrantes
 ![Diagramas Arquitectura-ExpDiagrama](https://user-images.githubusercontent.com/78925077/223605270-80a0b54c-ecf0-44cc-8908-f564c47ffbc1.png)
 
 Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. Para ello, se usa Apache Pulsar como broker de eventos.
+
+## Trabajo implementado
+
+* Elkin Rativa Ruiz   : Tareas con respecto a diseño de experimentacion con patrones
+                        Base Microservicio Storefront
+                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/1
+* Oscar Cortes Medina : Microservicio Rutas
+                        Revision de implementacion de version 1: 
+                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/2
+* Jorge E. Pachero R. : Microservicio Ordenes
+                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/3
+* Diego F. Garcia O   : Microservicio Inventario
+                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4
+                        
