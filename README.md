@@ -26,3 +26,5 @@ Experimentación diseño y construcción de soluciones no monolíticas
 ## Diseño de experimentación para validar escenarios de calidad.
 
 ![Diagramas Arquitectura-ExpDiagrama](https://user-images.githubusercontent.com/78925077/223605270-80a0b54c-ecf0-44cc-8908-f564c47ffbc1.png)
+
+Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. Para ello, se usa Apache Pulsar como broker de eventos.
