@@ -29,6 +29,7 @@ class Command(Record):
     service_name = String()
 
 class CreateOrderPayload(Record):
+    event_name = String()
     product_uuid = String()
     product_quantity = String()
     order_type = String()
@@ -36,14 +37,6 @@ class CreateOrderPayload(Record):
 
 class CommandCreateOrder(Command):
     data = CreateOrderPayload()
-
-
-class StockValidaterPayload(Record):
-    product_uuid = String()
-    product_quantity = String()
-
-class CommandStockValidate(Command):
-    data = StockValidaterPayload()
 
 
 
@@ -54,8 +47,7 @@ if __name__ == '__main__':
 client = pulsar.Client('pulsar://localhost:6650')
 
 topics = [
-    {'topic': 'order_command_create', 'subscription': 'sub1', 'schema_type': AvroSchema(CommandCreateOrder)},
-    {'topic': 'productos', 'subscription': 'sub2', 'schema_type': AvroSchema(CommandStockValidate)}
+    {'topic': 'order_command_create', 'subscription': 'sub1', 'schema_type': AvroSchema(CommandCreateOrder)}
     ]
 
 consumers = []
@@ -71,31 +63,12 @@ while True:
         try:
             print('=========================================')
             print("Mensaje Recibido: '%s'" % msg.topic_name())
+            print("Data Recibida: '%s'" % msg.value().data)
             print('=========================================')
 
-            if msg.topic_name() == 'persistent://public/default/order_command_create':
-                print('envia el stock')
-                orden_data = msg.value().data
-                data = {
-                    'product_uuid' : orden_data.product_uuid,
-                    'product_quantity' : orden_data.product_quantity,
-                }
-                commandController.StockCommandValidator(data)
-                consumer.acknowledge(msg)
-
-            if msg.topic_name() == 'persistent://public/default/productos':
-                print('productos validos')
-                stock_data = msg.value().data
-                data = {
-                    'product_uuid' : stock_data.product_uuid,
-                    'product_quantity' : stock_data.product_quantity,
-                }
-                commandController.RouteCommandCreate(data)
-                consumer.acknowledge(msg)
+            consumer.acknowledge(msg)
 
         except:
             consumer.negative_acknowledge(msg)
     
-
-client.close()
 
