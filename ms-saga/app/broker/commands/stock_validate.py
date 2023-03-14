@@ -5,13 +5,10 @@ from pulsar.schema import *
 
 from app.broker.commands.command_base import Command
 
-class CreateOrderPayload(Record):
-    event_name = String()
-    
+class StockValidaterPayload(Record):
+    order_uuid = String()
     product_uuid = String()
     product_quantity = String()
-    order_type = String()
-    address = String()
 
-class CommandCreateOrder(Command):
-    data = CreateOrderPayload()
+class CommandStockValidate(Command):
+    data = StockValidaterPayload()
