@@ -6,12 +6,27 @@ from pulsar.schema import *
 import asyncio
 
 client = pulsar.Client('pulsar://localhost:6650')
+tasks = list()
 
 class Saga_Coordinator:
     
-    def init(self):
+    
 
-        task1 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront", CommandCreateOrder))
+    async def init(self):
+
+        global tasks
+        print('Function INIT')
+        task1 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront-1", CommandCreateOrder))
+        task2 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront-2", CommandCreateOrder))
+        
+        tasks.append(task1)
+        tasks.append(task2)
+        await asyncio.sleep(100)
+        
+        # await suscribirse_a_topico("events-storefront", "sub-storefront", CommandCreateOrder)
+        # await suscribirse_a_topico("events-storefront", "sub-storefront", CommandCreateOrder)
+        # await suscribirse_a_topico("events-storefront", "sub-storefront", CommandCreateOrder)
+        # task1 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront", CommandCreateOrder))
     
         
         # topics = [
