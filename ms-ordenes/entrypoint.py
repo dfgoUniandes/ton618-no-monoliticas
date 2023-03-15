@@ -2,9 +2,11 @@ from flask_restful import Api
 from flask_cors import CORS
 from app import create_app
 import os
-from app.domain.domain import init
+from app.domain.domain import Domain
 
 import asyncio
+
+domain_logic = Domain()
 
 settings_module = os.getenv('APP_SETTINGS_MODULE')
 app = create_app(settings_module)
@@ -16,4 +18,4 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 with app.app_context():
-    asyncio.run(init())
+    asyncio.run(domain_logic.init())
