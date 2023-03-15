@@ -26,7 +26,7 @@ class EventController:
     def OrderStartedEvent(self, data):
         topic = 'events-ordenes'
         payload = OrderStartedPayload(
-            event_name='orden-inicializada',            
+            tag_name='orden-inicializada',            
             order_uuid=str(data['order_uuid']),            
             product_uuid=str(data['product_uuid']),            
             product_quantity=str(data['product_quantity']),            
