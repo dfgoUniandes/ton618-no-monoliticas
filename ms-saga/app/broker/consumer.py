@@ -24,6 +24,7 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, sa
                     print(f'Evento recibido: {datos}')
                     saga.procesar_evento(datos.data.tag_name, datos.data)
                     await consumidor.acknowledge(mensaje)    
+                    print(f'Mensaje ACK: {mensaje}')
 
     except:
         logging.error('ERROR: Suscribiendose al tópico de eventos!')

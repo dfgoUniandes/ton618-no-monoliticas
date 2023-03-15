@@ -19,3 +19,6 @@ if __name__ == '__main__':
 
 with app.app_context():
     asyncio.run(saga_coordinator.init())
+
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(saga_coordinator.init())

@@ -2,6 +2,7 @@ from app.broker.controllers.event_controller import EventController
 from app.broker.commands.create_order import CommandCreateOrder
 from app.broker.consumer import suscribirse_a_topico
 import asyncio
+from app.utils.utils import uuid4Str
 
 tasks = list()
 event_controller = EventController()
@@ -20,6 +21,10 @@ class Domain:
         await asyncio.sleep(100)
         
     def process_commands(self, command, data_command):
+
+        print('Command: ' + command)
+        print('data: ' + data_command)
+
         if command == 'crear-orden':
             
             global event_controller
@@ -28,7 +33,7 @@ class Domain:
             # Interaccion con DB
 
             data_event_emit = {}
-            data_event_emit['order_uuid'] = 'uuid order temp'
+            data_event_emit['order_uuid'] = uuid4Str()
             data_event_emit['product_uuid'] = data_command.product_uuid
             data_event_emit['product_quantity'] = data_command.product_quantity
             data_event_emit['order_type'] = data_command.order_type

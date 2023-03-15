@@ -90,5 +90,5 @@ class CoordinadorOrdenes(CoordinadorSaga):
             self.terminar()
         elif evento == paso.error:
             self.publicar_comando(evento, self.pasos[index-1].compensacionCreador, data)
-        elif isinstance(evento, paso.evento):
+        elif evento == paso.evento:
             self.publicar_comando(evento, self.pasos[index+1].comandoCreador, data)
