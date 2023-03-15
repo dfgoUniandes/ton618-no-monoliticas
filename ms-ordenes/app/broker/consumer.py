@@ -22,7 +22,7 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, pr
                     print(f'Evento recibido: {datos}')
 
                     # Desencadenar logica dependiendo del evento
-                    process_commands(datos.data.event_name, datos.data)
+                    process_commands(datos.data.tag_name, datos.data)
                     
                     await consumidor.acknowledge(mensaje)    
 

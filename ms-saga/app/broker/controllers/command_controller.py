@@ -14,7 +14,7 @@ class CommandController:
     def OrderCommandCreator(self, data):
         topico = 'crear-orden'
         payload = CreateOrderPayload(
-            command_name='crear-orden',
+            tag_name='crear-orden',
             product_uuid=str(data.product_uuid),
             product_quantity=str(data.product_quantity),
             order_type=str(data.order_type),

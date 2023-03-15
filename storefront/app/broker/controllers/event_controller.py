@@ -11,7 +11,7 @@ class EventController:
         topic = 'events-storefront'
 
         payload = OrderReceivedPayload(
-            event_name='orden-recibida',
+            tag_name='orden-recibida',
             product_uuid=str(data['product_uuid']),
             product_quantity=str(data['product_quantity']),
             order_type=str(data['order_type']),

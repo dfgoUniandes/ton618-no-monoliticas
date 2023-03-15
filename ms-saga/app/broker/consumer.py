@@ -22,7 +22,7 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, sa
                     print(mensaje)
                     datos = mensaje.value()
                     print(f'Evento recibido: {datos}')
-                    saga.procesar_evento(datos.data.event_name, datos.data)
+                    saga.procesar_evento(datos.data.tag_name, datos.data)
                     await consumidor.acknowledge(mensaje)    
 
     except:

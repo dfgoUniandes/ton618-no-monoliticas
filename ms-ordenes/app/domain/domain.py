@@ -20,7 +20,7 @@ class Domain:
         await asyncio.sleep(100)
         
     def process_commands(self, command, data_command):
-        if command == 'crear_evento':
+        if command == 'crear_orden':
             
             global event_controller
             
