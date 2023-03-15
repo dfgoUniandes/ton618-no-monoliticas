@@ -17,7 +17,7 @@ class Saga_Coordinator:
         global tasks
         print('Function INIT')
         task1 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront-1", OrderReceivedEvent, self.coordinador_ordenes))
-        task2 = asyncio.ensure_future(suscribirse_a_topico("events-ordenes", "sub-ordenes-1", EventOrderStarted))
+        task2 = asyncio.ensure_future(suscribirse_a_topico("events-ordenes", "sub-ordenes-1", EventOrderStarted, self.coordinador_ordenes))
         
         tasks.append(task1)
         tasks.append(task2)

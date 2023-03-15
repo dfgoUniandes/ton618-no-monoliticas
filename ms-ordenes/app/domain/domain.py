@@ -9,7 +9,7 @@ async def init():
 
     global tasks
     print('Function INIT')
-    task1 = asyncio.ensure_future(suscribirse_a_topico("crear-orden", "sub-crear-orden-1", CommandCreateOrder))
+    task1 = asyncio.ensure_future(suscribirse_a_topico("crear-orden", "sub-crear-orden-1", process_commands))
     # task2 = asyncio.ensure_future(suscribirse_a_topico("events-storefront", "sub-storefront-2", CommandCreateOrder))
     
     tasks.append(task1)
