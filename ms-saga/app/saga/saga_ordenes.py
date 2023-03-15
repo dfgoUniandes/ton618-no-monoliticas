@@ -6,16 +6,20 @@ from app.broker.controllers.command_controller import CommandController
 
 command_controller = CommandController()
 
+class Paso():
+    id_correlacion: uuid.UUID
+    fecha_evento: datetime.datetime
+    index: int
+
 @dataclass
 class Transaccion(Paso):
-    
+    index: int
     comando: any
     comandoCreador: any
     evento: any
     error: any
     compensacion: any
     compensacionCreador: any
-    exitosa: bool
 
 class CoordinadorSaga(ABC):
     id_correlacion: uuid.UUID
@@ -24,10 +28,6 @@ class CoordinadorSaga(ABC):
         comandoCreador()
     
 
-class Paso():
-    id_correlacion: uuid.UUID
-    fecha_evento: datetime.datetime
-    index: int
 
 @dataclass
 class Inicio(Paso):
@@ -41,13 +41,13 @@ class Fin(Paso):
 
 class CoordinadorOrdenes(CoordinadorSaga):
 
-    pasos: list[Transaccion]
+    pasos: list()
     index: int
 
     def inicializar_pasos(self):
         self.pasos = [
-            Transaccion(index=0, comando='', comandoCreador='', evento='OrdenRecibida', error='', compensacion=''),
-            Transaccion(index=1, comando='CrearOrden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden'),
+            Transaccion(index=0, comando='', comandoCreador='', evento='orden-recibida', error='', compensacion='', compensacionCreador=''),
+            Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden', compensacionCreador=''),
         ]
 
     def persistir_en_saga_log(self, mensaje):
@@ -58,7 +58,7 @@ class CoordinadorOrdenes(CoordinadorSaga):
 
     def iniciar(self):
         # self.persistir_en_saga_log(self.pasos[0])
-        self.publicar_comando('CrearOrden', self.pasos[1].comandoCreator)
+        self.publicar_comando('CrearOrden', self.pasos[1].comandoCreador)
         return
 
 
