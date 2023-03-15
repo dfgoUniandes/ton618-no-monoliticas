@@ -20,8 +20,8 @@ class Transaccion(Paso):
 class CoordinadorSaga(ABC):
     id_correlacion: uuid.UUID
 
-    def publicar_comando(self, evento, comandoCreador: any):
-        comandoCreador()
+    def publicar_comando(self, evento, comandoCreador: any, data):
+        comandoCreador(data)
     
 
 class Paso():
@@ -46,8 +46,8 @@ class CoordinadorOrdenes(CoordinadorSaga):
 
     def inicializar_pasos(self):
         self.pasos = [
-            Transaccion(index=0, comando='', comandoCreador='', evento='OrdenRecibida', error='', compensacion=''),
-            Transaccion(index=1, comando='CrearOrden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden'),
+            Transaccion(index=0, comando='', comandoCreador='', evento='orden-recibida', error='', compensacion=''),
+            Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden'),
         ]
 
     def persistir_en_saga_log(self, mensaje):
@@ -58,7 +58,7 @@ class CoordinadorOrdenes(CoordinadorSaga):
 
     def iniciar(self):
         # self.persistir_en_saga_log(self.pasos[0])
-        self.publicar_comando('CrearOrden', self.pasos[1].comandoCreator)
+        self.publicar_comando('crear-orden', self.pasos[1].comandoCreator)
         return
 
 
@@ -80,13 +80,13 @@ class CoordinadorOrdenes(CoordinadorSaga):
         return (len(self.pasos) - 1) == index
 
 
-    def procesar_evento(self, evento: str):
+    def procesar_evento(self, evento: str, data):
         paso, index = self.obtener_paso_dado_un_evento(evento)
         if index == 0:
-            self.iniciar()
+            self.iniciar(data)
         elif self.es_ultima_transaccion(index) and not evento == paso.error:
             self.terminar()
         elif evento == paso.error:
-            self.publicar_comando(evento, self.pasos[index-1].compensacionCreador)
+            self.publicar_comando(evento, self.pasos[index-1].compensacionCreador, data)
         elif isinstance(evento, paso.evento):
-            self.publicar_comando(evento, self.pasos[index+1].comandoCreador)
+            self.publicar_comando(evento, self.pasos[index+1].comandoCreador, data)
