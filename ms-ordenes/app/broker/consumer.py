@@ -2,9 +2,8 @@ import logging
 import traceback
 import pulsar, _pulsar
 import aiopulsar
-import asyncio
 from pulsar.schema import *
-from app.saga.saga_ordenes import CoordinadorOrdenes
+from app.domain.domain import process_commands
 
 
 async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, tipo_consumidor:_pulsar.ConsumerType=_pulsar.ConsumerType.Shared):
@@ -22,8 +21,10 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, ti
                     print(mensaje)
                     datos = mensaje.value()
                     print(f'Evento recibido: {datos}')
+
                     # Desencadenar logica dependiendo del evento
-                    # saga.procesar_evento(datos.data.event_name, datos.data)
+                    process_commands(datos.data.event_name, datos.data)
+                    
                     await consumidor.acknowledge(mensaje)    
 
     except:

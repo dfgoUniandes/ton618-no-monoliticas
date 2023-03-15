@@ -26,7 +26,7 @@ class CoordinadorSaga(ABC):
 
     def publicar_comando(self, evento, comandoCreador: any, data):
         comandoCreador(data)
-    
+
 
 
 
@@ -48,14 +48,14 @@ class CoordinadorOrdenes(CoordinadorSaga):
     def inicializar_pasos(self):
         self.pasos = [
             Transaccion(index=0, comando='', comandoCreador='', evento='orden-recibida', error='', compensacion='', compensacionCreador=''),
-            Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden', compensacionCreador=''),
+            Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='orden-inicializada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
         ]
 
     def persistir_en_saga_log(self, mensaje):
         # TODO Persistir estado en DB
         # Probablemente usted podría usar un repositorio para ello
         ...
-    
+
 
     def iniciar(self, data):
         # self.persistir_en_saga_log(self.pasos[0])
@@ -65,6 +65,7 @@ class CoordinadorOrdenes(CoordinadorSaga):
 
     def terminar(self):
         # self.persistir_en_saga_log(self.pasos[-1])
+        print('Transaccion Terminada')
         return
 
 
@@ -73,9 +74,9 @@ class CoordinadorOrdenes(CoordinadorSaga):
 
             if evento == paso.evento or evento == paso.error:
                 return paso, i
-            
+
         raise Exception("Evento no hace parte de la transacción")
-                
+
 
     def es_ultima_transaccion(self, index):
         return (len(self.pasos) - 1) == index

@@ -22,11 +22,16 @@ class EventController:
         comando_integracion = EventOrderCompleted(data=payload)
         dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventOrderCompleted))
 
-
+    # Actualizado
     def OrderStartedEvent(self, data):
-        topic = 'order-event-started'
+        topic = 'events-ordenes'
         payload = OrderStartedPayload(
-            order_uuid=str(data['order_uuid'])            
+            event_name='orden-inicializada',            
+            order_uuid=str(data['order_uuid']),            
+            product_uuid=str(data['product_uuid']),            
+            product_quantity=str(data['product_quantity']),            
+            order_type=str(data['order_type']),            
+            address=str(data['address'])            
         )
         comando_integracion = EventOrderStarted(data=payload)
         dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventOrderStarted))
