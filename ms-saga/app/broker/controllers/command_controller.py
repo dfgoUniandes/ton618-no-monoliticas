@@ -14,10 +14,14 @@ class CommandController:
     def OrderCommandCreator(self, data):
         topico = 'order-command-create'
         payload = CreateOrderPayload(
-            product_uuid=str(data['product_uuid']),
-            product_quantity=str(data['product_quantity']),
-            order_type=str(data['order_type']),
-            address=str(data['address'])
+            # product_uuid=str(data['product_uuid']),
+            # product_quantity=str(data['product_quantity']),
+            # order_type=str(data['order_type']),
+            # address=str(data['address'])
+            product_uuid=str(data.product_uuid),
+            product_quantity=str(data.product_quantity),
+            order_type=str(data.order_type),
+            address=str(data.address)
         )
         
         comando_integracion = CommandCreateOrder(data=payload)
