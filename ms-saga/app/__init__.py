@@ -4,6 +4,10 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 
+from app.broker.coordinator.saga_coordinator import Saga_Coordinator
+import asyncio
+saga_coordinator = Saga_Coordinator()
+
 db = SQLAlchemy()
 migrate = Migrate()
 ma = Marshmallow()
@@ -20,5 +24,7 @@ def create_app(settings_module):
     # migrate.init_app(app, db, render_as_batch=True)
     with app.app_context():
         db.create_all()
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(saga_coordinator.init())
 
     return app

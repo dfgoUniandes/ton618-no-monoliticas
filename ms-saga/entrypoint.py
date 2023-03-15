@@ -17,8 +17,8 @@ CORS(app)
 if __name__ == '__main__':
     app.run(debug=True)
 
-with app.app_context():
-    asyncio.run(saga_coordinator.init())
+# with app.app_context():
+#     asyncio.run(saga_coordinator.init())
 
 # loop = asyncio.get_event_loop()
 # loop.run_until_complete(saga_coordinator.init())
