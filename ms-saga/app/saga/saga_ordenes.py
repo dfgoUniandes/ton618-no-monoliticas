@@ -1,30 +1,92 @@
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+import uuid
+import datetime
+from app.broker.controllers.command_controller import CommandController
 
+command_controller = CommandController()
 
-# class CoordinadorReservas(CoordinadorOrquestacion):
-
-#     def inicializar_pasos(self):
-#         self.pasos = [
-#             Inicio(index=0),
-#             Transaccion(index=1, comando=CrearReserva, evento=ReservaCreada, error=CreacionReservaFallida, compensacion=CancelarReserva),
-#             Transaccion(index=2, comando=PagarReserva, evento=ReservaPagada, error=PagoFallido, compensacion=RevertirPago),
-#             Transaccion(index=3, comando=ConfirmarReserva, evento=ReservaGDSConfirmada, error=ConfirmacionFallida, compensacion=ConfirmacionGDSRevertida),
-#             Transaccion(index=4, comando=AprobarReserva, evento=ReservaAprobada, error=AprobacionReservaFallida, compensacion=CancelarReserva),
-#             Fin(index=5)
-#         ]
-
-#     def iniciar(self):
-#         self.persistir_en_saga_log(self.pasos[0])
+@dataclass
+class Transaccion(Paso):
     
-#     def terminar():
-#         self.persistir_en_saga_log(self.pasos[-1])
+    comando: any
+    comandoCreador: any
+    evento: any
+    error: any
+    compensacion: any
+    compensacionCreador: any
+    exitosa: bool
 
-#     def persistir_en_saga_log(self, mensaje):
-#         # TODO Persistir estado en DB
-#         # Probablemente usted podría usar un repositorio para ello
-#         ...
+class CoordinadorSaga(ABC):
+    id_correlacion: uuid.UUID
 
-#     def construir_comando(self, evento: EventoDominio, tipo_comando: type):
-#         # TODO Transforma un evento en la entrada de un comando
-#         # Por ejemplo si el evento que llega es ReservaCreada y el tipo_comando es PagarReserva
-#         # Debemos usar los atributos de ReservaCreada para crear el comando PagarReserva
-#         ...
+    def publicar_comando(self, evento, comandoCreador: any):
+        comandoCreador()
+    
+
+class Paso():
+    id_correlacion: uuid.UUID
+    fecha_evento: datetime.datetime
+    index: int
+
+@dataclass
+class Inicio(Paso):
+    index: int = 0
+
+@dataclass
+class Fin(Paso):
+    ...
+
+
+
+class CoordinadorOrdenes(CoordinadorSaga):
+
+    pasos: list[Transaccion]
+    index: int
+
+    def inicializar_pasos(self):
+        self.pasos = [
+            Transaccion(index=0, comando='', comandoCreador='', evento='OrdenRecibida', error='', compensacion=''),
+            Transaccion(index=1, comando='CrearOrden', comandoCreador=command_controller.OrderCommandCreator, evento='OrdenInicializada', error='CreacionOrdenFallida', compensacion='CancelarOrden'),
+        ]
+
+    def persistir_en_saga_log(self, mensaje):
+        # TODO Persistir estado en DB
+        # Probablemente usted podría usar un repositorio para ello
+        ...
+    
+
+    def iniciar(self):
+        # self.persistir_en_saga_log(self.pasos[0])
+        self.publicar_comando('CrearOrden', self.pasos[1].comandoCreator)
+        return
+
+
+    def terminar(self):
+        # self.persistir_en_saga_log(self.pasos[-1])
+        return
+
+
+    def obtener_paso_dado_un_evento(self, evento: str):
+        for i, paso in enumerate(self.pasos):
+
+            if evento == paso.evento or evento == paso.error:
+                return paso, i
+            
+        raise Exception("Evento no hace parte de la transacción")
+                
+
+    def es_ultima_transaccion(self, index):
+        return (len(self.pasos) - 1) == index
+
+
+    def procesar_evento(self, evento: str):
+        paso, index = self.obtener_paso_dado_un_evento(evento)
+        if index == 0:
+            self.iniciar()
+        elif self.es_ultima_transaccion(index) and not evento == paso.error:
+            self.terminar()
+        elif evento == paso.error:
+            self.publicar_comando(evento, self.pasos[index-1].compensacionCreador)
+        elif isinstance(evento, paso.evento):
+            self.publicar_comando(evento, self.pasos[index+1].comandoCreador)

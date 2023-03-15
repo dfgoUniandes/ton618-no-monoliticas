@@ -4,9 +4,10 @@ import pulsar, _pulsar
 import aiopulsar
 import asyncio
 from pulsar.schema import *
+from app.saga.saga_ordenes import CoordinadorOrdenes
 
 
-async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, tipo_consumidor:_pulsar.ConsumerType=_pulsar.ConsumerType.Shared):
+async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, saga: CoordinadorOrdenes, tipo_consumidor:_pulsar.ConsumerType=_pulsar.ConsumerType.Shared):
     try:
         print('INIT suscribirse_a_topico')
         async with aiopulsar.connect(f'pulsar://localhost:6650') as cliente:
@@ -21,6 +22,7 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, ti
                     print(mensaje)
                     datos = mensaje.value()
                     print(f'Evento recibido: {datos}')
+                    saga.procesar_evento(datos.data.event_name)
                     await consumidor.acknowledge(mensaje)    
 
     except:
