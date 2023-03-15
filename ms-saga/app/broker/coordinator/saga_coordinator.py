@@ -1,12 +1,8 @@
 from app.broker.events.order_received import OrderReceivedEvent
 from app.broker.consumer import suscribirse_a_topico
 from app.saga.saga_ordenes import CoordinadorOrdenes
-
-import pulsar, _pulsar
-from pulsar.schema import *
 import asyncio
 
-client = pulsar.Client('pulsar://localhost:6650')
 tasks = list()
 
 class Saga_Coordinator:

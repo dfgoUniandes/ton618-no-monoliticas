@@ -1,5 +1,7 @@
 from app.broker.dispatcher  import Dispatcher
 from app.broker.events.order_received import OrderReceivedEvent, OrderReceivedPayload
+import pulsar
+from pulsar.schema import *
 
 dispatcher = Dispatcher()
 
