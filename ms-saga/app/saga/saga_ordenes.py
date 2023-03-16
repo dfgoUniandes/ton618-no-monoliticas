@@ -49,9 +49,10 @@ class CoordinadorOrdenes(CoordinadorSaga):
         self.pasos = [
             Transaccion(index=0, comando='', comandoCreador='', evento='orden-recibida', error='', compensacion='', compensacionCreador=''),
             Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='orden-inicializada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
-            Transaccion(index=2, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='orden-inicializada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
-            
-            # Transaccion(index=1, comando='completar-orden', comandoCreador=command_controller.CompleteOrderCommandCreator, evento='orden-completada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
+            Transaccion(index=2, comando='verificar-producto', comandoCreador=command_controller.StockCommandValidator, evento='product-event-available', error='product-event-unavailable', compensacion='cancelar-orden', compensacionCreador=''),
+            Transaccion(index=3, comando='coordinar-ruta', comandoCreador=command_controller.RouteCommandCreate, evento='route-event-created', error='route-event-unavailable', compensacion='compensacion-coordinar-ruta', compensacionCreador=''),
+            Transaccion(index=4, comando='alistar-producto', comandoCreador=command_controller.ProductCommandPrepare, evento='product-event-ready', error='product-event-unready', compensacion='', compensacionCreador=''),
+            Transaccion(index=5, comando='completar-orden', comandoCreador=command_controller.CompleteOrderCommandCreator, evento='orden-completada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
         ]
 
     def persistir_en_saga_log(self, mensaje):
