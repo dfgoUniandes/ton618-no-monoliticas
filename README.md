@@ -109,4 +109,7 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
     * export FLASK_APP=entrypoint.py
     * flask run -p 5004
 
+## Colección de Postman
+La colección de postman con la url para pruebas la pueden descargar en el siguiente link:
+* https://drive.google.com/file/d/1W1QxODV1wwRk9yZCY7GJ-nAxvc5nRyz7/view?usp=share_link
 
