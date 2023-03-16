@@ -38,12 +38,12 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
 
 * Elkin Rativa Ruiz   : Tareas con respecto a diseño de experimentacion con patrones
                         Base Microservicio Storefront
-                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/1
+                        Pullrequest 1 : [Pullrequest 1](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/1)
 * Oscar Cortes Medina : Microservicio Rutas
                         Revision de implementacion de version 1: 
-                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/2
+                        Pullrequest: [Pullrequest 2](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/2)
 * Jorge E. Pachero R. : Microservicio Ordenes
-                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/3
+                        Pullrequest: [Pullrequest 3](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/3)
 * Diego F. Garcia O   : Microservicio Inventario
-                        Pullrequest: https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4
+                        Pullrequest: [Pullrequest 4](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4)
                         
