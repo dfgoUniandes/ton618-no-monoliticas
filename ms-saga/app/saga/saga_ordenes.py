@@ -49,6 +49,7 @@ class CoordinadorOrdenes(CoordinadorSaga):
         self.pasos = [
             Transaccion(index=0, comando='', comandoCreador='', evento='orden-recibida', error='', compensacion='', compensacionCreador=''),
             Transaccion(index=1, comando='crear-orden', comandoCreador=command_controller.OrderCommandCreator, evento='orden-inicializada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
+            Transaccion(index=1, comando='completar-orden', comandoCreador=command_controller.CompleteOrderCommandCreator, evento='orden-completada', error='creacion-orden-fallida', compensacion='cancelar-orden', compensacionCreador=''),
         ]
 
     def persistir_en_saga_log(self, mensaje):

@@ -14,14 +14,6 @@ dispatcher = Dispatcher()
 
 class EventController:
 
-    def OrderCompletedEvent(self, data):
-        topic = 'order-event-completed'
-        payload = OrderCompletedPayload(
-            order_uuid=str(data['order_uuid'])            
-        )
-        comando_integracion = EventOrderCompleted(data=payload)
-        dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventOrderCompleted))
-
     # Actualizado
     def OrderStartedEvent(self, data):
         topic = 'events-ordenes'
@@ -35,6 +27,22 @@ class EventController:
         )
         comando_integracion = EventOrderStarted(data=payload)
         dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventOrderStarted))
+
+    # Actualizado
+    def OrderCompletedEvent(self, data):
+        topic = 'events-ordenes'
+        payload = OrderCompletedPayload(
+            tag_name='orden-completada',            
+            order_uuid=str(data['order_uuid']),            
+            route_uuid=str(data['route_uuid']),            
+            product_uuid=str(data['product_uuid']),            
+            product_quantity=str(data['product_quantity']),            
+            order_type=str(data['order_type']),            
+            address=str(data['address'])
+        )
+        comando_integracion = EventOrderCompleted(data=payload)
+        dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventOrderCompleted))
+
 
     def ProductAvailableEvent(self, data):
         topic = 'product-event-available'

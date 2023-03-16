@@ -3,9 +3,9 @@
 import pulsar, _pulsar
 from pulsar.schema import *
 
-from app.broker.events.event_base import Event
+from app.broker.commands.command_base import Command
 
-class OrderCompletedPayload(Record):
+class CompleteOrderPayload(Record):
     
     tag_name = String()
     product_uuid = String()
@@ -14,5 +14,5 @@ class OrderCompletedPayload(Record):
     route_uuid = String()
     address = String()
 
-class EventOrderCompleted(Event):
-    data = OrderCompletedPayload()
+class CommandCompleteOrder(Command):
+    data = CompleteOrderPayload()
