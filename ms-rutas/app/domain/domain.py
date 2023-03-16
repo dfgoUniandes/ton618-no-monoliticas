@@ -3,6 +3,7 @@ from app.broker.controllers.event_controller import EventController
 from app.broker.consumer import suscribirse_a_topico
 import asyncio
 from app.broker.commands.create_route import CreateRouteValidate
+from app.broker.events.route_compensated import EventRouteCompensated
 tasks = list()
 event_controller = EventController()
 
@@ -15,9 +16,11 @@ class Domain:
         print('Inicializo el dominio de rutas')
         task1 = asyncio.ensure_future(suscribirse_a_topico(
             "coordinar-ruta", "sub-coordinar-ruta-1", CreateRouteValidate, self.process_commands))
+        task2 = asyncio.ensure_future(suscribirse_a_topico(
+            "compensacion-coordinar-ruta", "sub-compensacion-ruta-1", EventRouteCompensated, self.process_commands))
 
         tasks.append(task1)
-        # tasks.append(task2)
+        tasks.append(task2)
         await asyncio.sleep(100)
 
     async def process_commands(self, command, data_command):
