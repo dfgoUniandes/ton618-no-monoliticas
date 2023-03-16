@@ -65,3 +65,6 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
 
 ## Conclusiones
 * Las sagas son una secuencia de operaciones individuales para manejar procesos de negocios largos. En una arquitectura distribuida, cada operación de la saga es ejecutada en un servicio distinto.
+* Los BFFs sirven como servicios de agregación y composición y,  pueden ayudarnos a efectuar los procesos necesarios para la experiencia de usuario requerida para no dejar lógica en las manos de los frontend.
+* Implementar un proceso de implementación estandarizado. El proceso de implementación debe ser coherente entre los servicios. Se debe crear un nuevo microservicio con un proceso de implementación ya disponible.
+
