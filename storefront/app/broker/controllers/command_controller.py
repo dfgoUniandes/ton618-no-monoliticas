@@ -6,15 +6,4 @@ from pulsar.schema import *
 dispatcher = Dispatcher()
 
 class CommandController:
-
-    def OrderCommandCreator(self, data):
-        topico = 'order-command-create'
-        payload = CreateOrderPayload(
-            product_uuid=str(data['product_uuid']),
-            product_quantity=str(data['product_quantity']),
-            order_type=str(data['order_type']),
-            address=str(data['address'])
-        )
-        
-        comando_integracion = CommandCreateOrder(data=payload)
-        dispatcher._publicar_mensaje(comando_integracion, topico, AvroSchema(CommandCreateOrder))
+    ...
