@@ -25,9 +25,8 @@ class Domain:
 
         print('Command Received: ' + command)
 
-        if command == 'crear-orden':
-            
-            global event_controller
+        global event_controller
+        if command == 'crear-orden':    
             
             # Logica al recepcionar el comando
             # Interaccion con DB
@@ -42,9 +41,7 @@ class Domain:
             event_controller.OrderStartedEvent(data_event_emit)
 
 
-        if command == 'completar-orden':
-            
-            global event_controller
+        elif command == 'completar-orden':
             
             # Logica al recepcionar el comando
             # Interaccion con DB
