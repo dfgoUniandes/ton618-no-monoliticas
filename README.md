@@ -28,9 +28,9 @@ Integrantes
 ### Escenario 3
 ![image](https://user-images.githubusercontent.com/78925077/223602552-250d0b05-1134-4589-b20c-f2cbc1cf6d4f.png)
 
-## Diseño de experimentación para validar escenarios de calidad.
+## Diseño de experimentación para validar escenarios de calidad. 
 
-![Diagramas Arquitectura-ExpDiagrama](https://user-images.githubusercontent.com/78925077/223605270-80a0b54c-ecf0-44cc-8908-f564c47ffbc1.png)
+![Diagramas Arquitectura-ExpDiagrama drawio](https://user-images.githubusercontent.com/78925077/225509230-6a8fb5f8-d735-4cb0-9200-6f0a4571bdbb.png)
 
 Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. Para ello, se usa Apache Pulsar como broker de eventos.
 
