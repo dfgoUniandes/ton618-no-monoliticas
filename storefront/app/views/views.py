@@ -16,9 +16,9 @@ from flask_jwt_extended import get_jwt_identity, get_jwt
 import json
 from app.utils.utils import allowed_file
 import app
-from app.broker.controllers.command_controller import CommandController
+from app.broker.controllers.event_controller import EventController
 
-commandController = CommandController()
+event_controller = EventController()
 
 
 class Health(Resource):
@@ -35,7 +35,7 @@ class OrderCreation(Resource):
             "message" : "OK"
         }
 
-        commandController.OrderCommandCreator(request.json)
+        event_controller.OrderReceivedEvent(request.json)
 
         return data, 202
 
