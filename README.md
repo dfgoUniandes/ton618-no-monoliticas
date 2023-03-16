@@ -1,4 +1,4 @@
-# Presentación Entrega 4 - Experimentación diseño y construcción de soluciones no monolíticas
+# Presentación Entrega 4 - 5 - Experimentación diseño y construcción de soluciones no monolíticas
 
 ## Grupo TON618
 Integrantes
@@ -47,3 +47,10 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
 * Diego F. Garcia O   : Microservicio Inventario
                         Pullrequest: [Pullrequest 4](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4)
                         
+## Diagrama TO-BE 
+
+![TOBE DEF](https://user-images.githubusercontent.com/78925077/225508976-1b87b438-1c3b-41b1-b42f-98c2520de8a5.jpg)
+
+### Dominios y subdominios
+![TOBE DEF (1)](https://user-images.githubusercontent.com/78925077/225509024-85d26377-d0c1-4f9b-beb8-5e1dc7021bd7.jpg)
+
