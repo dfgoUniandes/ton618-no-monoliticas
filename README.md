@@ -42,14 +42,14 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
                         Pullrequest 7 : [Pullrequest 7](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/7)
 * Oscar Cortes Medina : Microservicio Rutas
                         Revision de implementacion de version 1: 
-                        Pullrequest: [Pullrequest 2](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/2)
-                        Pullrequest: [Pullrequest 9](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/9)
+                        Pullrequest 2: [Pullrequest 2](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/2)
+                        Pullrequest 9: [Pullrequest 9](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/9)
 * Jorge E. Pachero R. : Microservicio Ordenes
-                        Pullrequest: [Pullrequest 3](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/3)
-                        Pullrequest: [Pullrequest 8](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/8)
+                        Pullrequest 3: [Pullrequest 3](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/3)
+                        Pullrequest 8: [Pullrequest 8](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/8)
 * Diego F. Garcia O   : Microservicio Inventario
-                        Pullrequest: [Pullrequest 4](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4)
-                        Pullrequest: [Pullrequest 5](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/6)
+                        Pullrequest 4: [Pullrequest 4](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/4)
+                        Pullrequest 6: [Pullrequest 5](https://github.com/dfgoUniandes/ton618-no-monoliticas/pull/6)
                         
 ## Diagrama TO-BE 
 
@@ -58,3 +58,10 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
 ### Dominios y subdominios
 ![TOBE DEF (1)](https://user-images.githubusercontent.com/78925077/225509024-85d26377-d0c1-4f9b-beb8-5e1dc7021bd7.jpg)
 
+## Resultados cuantitativos y cualitativos.
+* La lógica de negocio se encuentra en cada microservicio y cada microservicio administra y valida su propio dominio.
+* Para el coordinador es necesario saber cuando comienza y termina una transacción local, esto se logra a través de los comandos. 
+* La idea del BFF (Storefront) es que sirve como punto de contacto para nuestros usuarios, transformando los llamados creacionales síncronos en publicación de comandos y de forma asíncrona escuchar los eventos de integración de los servicios de backend.
+
+## Conclusiones
+* Las sagas son una secuencia de operaciones individuales para manejar procesos de negocios largos. En una arquitectura distribuida, cada operación de la saga es ejecutada en un servicio distinto.
