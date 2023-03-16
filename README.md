@@ -68,3 +68,45 @@ Se desarrollan 3 microservicios con comunicación basada en eventos y comandos. 
 * Los BFFs sirven como servicios de agregación y composición y,  pueden ayudarnos a efectuar los procesos necesarios para la experiencia de usuario requerida para no dejar lógica en las manos de los frontend.
 * Implementar un proceso de implementación estandarizado. El proceso de implementación debe ser coherente entre los servicios. Se debe crear un nuevo microservicio con un proceso de implementación ya disponible.
 
+## Comandos de Ejecucion
+1- Abrir en el repositorio en Gitpod
+2- En una consola ejecutar el broker de Apache Pulsar
+
+* docker run -it -p 6650:6650 -p 8080:8080 --mount source=pulsardata,target=/pulsar/data --mount source=pulsarconf,target=/pulsar/conf apachepulsar/pulsar:2.11.0 bin/pulsar standalone
+
+3- Para ejecutar el storefront seguir hacer lo siguiente:
+  - Navegar a la carpeta de storefront
+  - Ejecutar los comandos:
+    * pip install -r requirements.txt
+    * export FLASK_APP=entrypoint.py
+    * flask run -p 5000
+    
+4- Para ejecutar el saga seguir hacer lo siguiente:
+  - Navegar a la carpeta de saga
+  - Ejecutar los comandos:
+    * pip install -r requirements.txt
+    * export FLASK_APP=entrypoint.py
+    * flask run -p 5001
+    
+5- Para ejecutar el servicio de ordenes seguir hacer lo siguiente:
+  - Navegar a la carpeta de ordenes
+  - Ejecutar los comandos:
+    * pip install -r requirements.txt
+    * export FLASK_APP=entrypoint.py
+    * flask run -p 5002
+        
+6- Para ejecutar el servicio de inventario seguir hacer lo siguiente:
+  - Navegar a la carpeta de inventario
+  - Ejecutar los comandos:
+    * pip install -r requirements.txt
+    * export FLASK_APP=entrypoint.py
+    * flask run -p 5003
+        
+7- Para ejecutar el servicio de rutas seguir hacer lo siguiente:
+  - Navegar a la carpeta de ordenes
+  - Ejecutar los comandos:
+    * pip install -r requirements.txt
+    * export FLASK_APP=entrypoint.py
+    * flask run -p 5004
+
+
