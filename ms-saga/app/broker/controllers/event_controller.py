@@ -10,6 +10,7 @@ from app.broker.events.route_created import RouteCreatedPayload, EventRouteCreat
 from app.broker.events.route_unavailable import RouteUnavailablePayload, EventRouteUnavailable
 from app.broker.events.order_received import OrderReceivedEvent, OrderReceivedPayload
 from app.broker.events.route_compensated import RouteCompensatedPayload, EventRouteCompensated
+from app.broker.events.product_ready import ProductReadyPayload, EventProductReady
 
 dispatcher = Dispatcher()
 
@@ -85,3 +86,13 @@ class EventController:
         comando_integracion = EventRouteCompensated(data=payload)
         dispatcher._publicar_mensaje(
             comando_integracion, topic, AvroSchema(EventRouteCompensated))
+        
+    def ProductReadyEvent(self,  data):
+        topic = 'product-event-ready'
+        payload = ProductReadyPayload(
+            order_uuid = str(data['order_uuid']),
+            product_uuid = str(data['product_uuid']),
+            product_quantity = str(data['product_quantity'])             
+        )
+        comando_integracion = EventProductReady(data=payload)
+        dispatcher._publicar_mensaje(comando_integracion, topic, AvroSchema(EventProductReady))

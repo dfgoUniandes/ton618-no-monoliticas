@@ -55,5 +55,5 @@ class Domain:
             data_event_emit['order_type'] = data_command.order_type
             data_event_emit['address'] = data_command.address
 
-            event_controller.ProductAvailableEvent(data_event_emit)
+            event_controller.ProductReadyEvent(data_event_emit)
 
